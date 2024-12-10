@@ -42,7 +42,7 @@ names.each do |name|
   end
 
   request_start_time = Time.now
-  request = Net::HTTP::Put.new(url)
+  request = Net::HTTP::Get.new(url)
   request["Content-Type"] = "application/json"
   request.body = { name: name }.to_json
 
