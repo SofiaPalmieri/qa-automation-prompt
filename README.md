@@ -1,33 +1,49 @@
 # QA Automation Challenge
 
+### Ruby Setup
+
+1) Download ruby from https://rubyinstaller.org/
+2) Follow the instructions
+3) Open the start menu and search for "Environment variables"
+4) Do a control + r, enter sysdm.cpl, and hit enter.
+5) Go to "Advanced options" tab
+6) Click "Environment variables" button
+7) Click "New" and add the path to Ruby's bin directory (e.g., C:\Ruby32-x64\bin).
+8) Click OK to save changes.
+9) Go to the command prompt and verify ruby has been installed by entering ***ruby --version***
+
+### SQLite Setup
+
+1) Go to your terminal and write ***gem install sqlite3***
+
+### Running the scripts
+
+For running the monitoring script:
+1) Go to the terminal and enter ***ruby monitoringScript.rb***
+
+For running the monitoring script:
+1) Go to the terminal and enter ***ruby uptime.rb***
+   
 ## Monitoring:
 
-    This Ruby script monitors an API for 10 minutes by making POST requests with a name parameter read from a text file. The script logs the results of each request (including the status and body of the API response) into an SQLite database for later analysis.
+This Ruby script monitors an API for 10 minutes by making POSTrequests with a name parameter read from a text file.
+The script logs the results of each request (including the status and body of the API response) into an SQLite database for later analysis.
 
-### Uptime:
+## Uptime:
 
-    This script reads the previously persisted information about the previous requests and calculates the time that the API has been up.
+This script reads the previously persisted information about the previous requests and calculates the time that the API has been up.
 
-### Bug 1: Missing name Parameter in the Request Body
+Uptime (%)=( Total Requests/Successful Requests (200))×100
 
-    Steps to Reproduce:
-    1) Navigate to the API endpoint: https://qa-challenge-nine.vercel.app/api/name-checker
-    Observe the error message that states the name parameter is missing in the request body.
+## Bug: Names with more than one lowercase 'p'
+Description: When entering words that contains more than one lowercase **p**. The API returns 500 internal server error.
+
+    Steps to reproduce it:
+    1) Enter a name with more than one lowercase 'p'. Example given: hiphop, pepper, Happy.
+    2) Submit the name and check that the API returns 500 internal server error
+
+Expected outcome: The API should respond with ***200***
     
-    Cause:
-    The script was not including the name parameter in the request body, which is required by the API to process the request.
 
-    Fix:
-    The script was updated to ensure that the name parameter is correctly included in the request body, formatted as a JSON object. Now, every request includes the necessary name parameter for the API to process.
 
-### Bug 2: Incorrect HTTP Method (GET Instead of POST)
 
-    Steps to Reproduce:
-    1) Navigate to: https://qa-challenge-nine.vercel.app/api/name-checker?name=SomeName
-    Observe the error message stating that the name parameter should be included in the request body.
-
-    Cause:
-    Initially, the script was sending GET requests instead of the required POST requests. While the name parameter was included in the query string, the API expects it to be sent in the body of a POST request, not as part of the URL in a GET request.
-
-    Fix:
-    The script was updated to use POST requests as required by the API specification. The name parameter was correctly placed in the request body, and the correct HTTP method (POST) was used for all requests.
