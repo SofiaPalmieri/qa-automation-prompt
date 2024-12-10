@@ -1,37 +1,33 @@
 # QA Automation Challenge
 
-## Introduction
+## Monitoring:
 
-This challenge is designed to evaluate candidate’s practical understanding of scripting, databases, and monitoring.
+    This Ruby script monitors an API for 10 minutes by making POST requests with a name parameter read from a text file. The script logs the results of each request (including the status and body of the API response) into an SQLite database for later analysis.
 
-We have an API at https://qa-challenge-nine.vercel.app/api/name-checker that processes names.
+### Uptime:
 
-This API endpoint has two issues you are expected to find and fix.
+    This script reads the previously persisted information about the previous requests and calculates the time that the API has been up.
 
-### Uptime
+### Bug 1: Missing name Parameter in the Request Body
 
-You are expected to find out what the actual service uptime is as expressed in time (% of time service returns 200) or requests (% of requests that return 200).
-To do this, you are expected to build a continuously monitoring script.
-In this script, you must log each request into the SQlite database in this project.
+    Steps to Reproduce:
+    1) Navigate to the API endpoint: https://qa-challenge-nine.vercel.app/api/name-checker
+    Observe the error message that states the name parameter is missing in the request body.
+    
+    Cause:
+    The script was not including the name parameter in the request body, which is required by the API to process the request.
 
-Second, you are expected to write a second script that reads from this database, calculates the service uptime, and outputs it to the console.
+    Fix:
+    The script was updated to ensure that the name parameter is correctly included in the request body, formatted as a JSON object. Now, every request includes the necessary name parameter for the API to process.
 
-Tip: You can accurately detect uptime by monitoring for 10 minutes with >1 req/s.
+### Bug 2: Incorrect HTTP Method (GET Instead of POST)
 
-### The Bug
+    Steps to Reproduce:
+    1) Navigate to: https://qa-challenge-nine.vercel.app/api/name-checker?name=SomeName
+    Observe the error message stating that the name parameter should be included in the request body.
 
-There is a bug in this application about the format of names. The API will return a specific error when this happens - you are expected to find out the pattern of this error.
+    Cause:
+    Initially, the script was sending GET requests instead of the required POST requests. While the name parameter was included in the query string, the API expects it to be sent in the body of a POST request, not as part of the URL in a GET request.
 
-## Deliverable
-Create a private fork of this repository and send it over to @conanbatt for review.
-Please commit the request_logs database as you store data on it.
-
-You are expected to deliver a reproducible case of the bug, as well as a well-defined uptime number in your deliverable. 
-
-### Tips & Tricks
-
-- It's very important to give your best on this challenge. Please check the [Takehome Guide](https://docs.silver.dev/interview-ready/technical-fundamentals/guia-de-takehomes) to understand what makes an exceptional takehome.
-- Bonus points for doing this in Ruby (even if it’s not your main language). Otherwise, python or Javascript is preferred.
-- The Bug is not contrived - it does not require lateral thinking.
-- You are welcome to use tooling like Postman, but the deliverable must includes scripts that executre requests and read from the database.
-- Any questions about the challenge, please ask at gabriel@silver.dev.
+    Fix:
+    The script was updated to use POST requests as required by the API specification. The name parameter was correctly placed in the request body, and the correct HTTP method (POST) was used for all requests.
