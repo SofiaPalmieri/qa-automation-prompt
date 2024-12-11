@@ -1,6 +1,6 @@
 # QA Automation Challenge
 
-### Ruby Setup
+## Ruby Setup
 
 1) Download ruby from https://rubyinstaller.org/
 2) Follow the instructions
@@ -12,21 +12,21 @@
 8) Click OK to save changes.
 9) Go to the command prompt and verify ruby has been installed by entering ***ruby --version***
 
-### SQLite Setup
+## SQLite Setup
 
 1) Go to your terminal and write ***gem install sqlite3***
 
-### Running the scripts
+## Running the scripts
 
 For running the monitoring script:
 1) Go to the terminal and enter ***ruby monitoringScript.rb***
 
-For running the monitoring script:
+For running the uptime script:
 1) Go to the terminal and enter ***ruby uptime.rb***
    
 ## Monitoring:
 
-This Ruby script monitors an API for 10 minutes by making POSTrequests with a name parameter read from a text file.
+This Ruby script monitors an API for 10 minutes by making PUT requests with a name parameter read from a text file.
 The script logs the results of each request (including the status and body of the API response) into an SQLite database for later analysis.
 
 ## Uptime:
@@ -36,13 +36,13 @@ This script reads the previously persisted information about the previous reques
 Uptime (%)=( Total Requests/Successful Requests (200))×100
 
 ## Bug: Names with more than one lowercase 'p'
-Description: When entering words that contains more than one lowercase **p**. The API returns 500 internal server error.
+Description: When entering words that contains more than one lowercase **p**, the API returns ***500 internal server error.***
 
     Steps to reproduce it:
     1) Enter a name with more than one lowercase 'p'. Example given: hiphop, pepper, Happy.
     2) Submit the name and check that the API returns 500 internal server error
 
-Expected outcome: The API should respond with ***200***
+***Expected outcome:*** The API should respond with ***200***
     
 
 
