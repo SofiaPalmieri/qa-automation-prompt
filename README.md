@@ -24,12 +24,12 @@ For running the monitoring script:
 For running the uptime script:
 1) Go to the terminal and enter ***ruby uptime.rb***
    
-## Monitoring:
+## Monitoring
 
 This Ruby script monitors an API for 10 minutes by making PUT requests with a name parameter read from a text file.
 The script logs the results of each request (including the status and body of the API response) into an SQLite database for later analysis.
 
-## Uptime:
+## Uptime
 
 This script reads the previously persisted information about the previous requests and calculates the time that the API has been up.
 
