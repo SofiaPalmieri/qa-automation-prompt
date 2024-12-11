@@ -35,6 +35,14 @@ This script reads the previously persisted information about the previous reques
 
 Uptime (%)=( Total Requests/Successful Requests (200))×100
 
+## Uptime output
+
+The uptime output is: 
+
+Total Requests: 421
+Successful Requests (200): 370
+Service Uptime: 87.89%
+
 ## Bug: Names with more than one lowercase 'p'
 Description: When entering words that contains more than one lowercase **p**, the API returns ***500 internal server error.***
 
